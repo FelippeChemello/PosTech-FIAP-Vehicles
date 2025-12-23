@@ -29,7 +29,7 @@ jobs:
           context: .
           file: services/api/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/fase-3-api:latest
+          tags: ghcr.io/felippechemello/fiap-vehicles-api:latest
 
       - name: Build and push Auth image
         uses: docker/build-push-action@v4
@@ -37,4 +37,4 @@ jobs:
           context: .
           file: services/auth/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/fase-3-auth:latest
+          tags: ghcr.io/felippechemello/fiap-vehicles-auth:latest
