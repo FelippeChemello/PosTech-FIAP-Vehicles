@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/infrastructure/prisma/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  SOLD
+}
+
+model Vehicle {
+  id        String        @id @default(cuid())
+  brand     String
+  model     String
+  year      Int
+  color     String
+  price     Decimal
+  status    VehicleStatus @default(AVAILABLE)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  sale      Sale?
+}
+
+model Sale {
+  id        String   @id @default(cuid())
+  vehicleId String   @unique
+  buyerId   String
+  price     Decimal
+  soldAt    DateTime @default(now())
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Restrict)
+}

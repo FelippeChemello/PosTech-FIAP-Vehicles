@@ -1,0 +1,21 @@
+{
+  "name": "fiap-fase-3",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "workspaces": [
+    "services/*"
+  ],
+  "scripts": {
+    "dev:auth": "pnpm -C services/auth dev",
+    "dev:api": "pnpm -C services/api dev",
+    "dev": "concurrently \"pnpm dev:auth\" \"pnpm dev:api\"",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "start": "pnpm -r start",
+    "db:migrate": "pnpm -C services/api prisma migrate deploy",
+    "db:studio": "pnpm -C services/api prisma studio"
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

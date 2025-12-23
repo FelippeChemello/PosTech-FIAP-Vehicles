@@ -1,0 +1,77 @@
+@baseURL = http://localhost:3000
+@authURL = http://localhost:4000
+@jwt = {{login.response.body.token}}
+
+# @name healthCheck
+GET {{authURL}}/health
+
+###
+
+# @name registerBuyer
+POST {{authURL}}/auth/sign-up/email
+content-type: application/json
+Origin: http://localhost:3000
+
+{
+  "email": "buyer1@example.com",
+  "password": "StrongPassword123!",
+  "name": "Comprador Exemplo"
+}
+
+###
+
+# @name login
+POST {{authURL}}/auth/sign-in/email
+content-type: application/json
+Origin: http://localhost:3000
+
+{
+  "email": "buyer1@example.com",
+  "password": "StrongPassword123!"
+}
+
+###
+
+# @name verifyToken
+GET {{authURL}}/auth/verify
+authorization: Bearer {{jwt}}
+
+###
+
+# @name createVehicle
+POST {{baseURL}}/vehicles
+content-type: application/json
+
+{
+  "brand": "Fiat",
+  "model": "Argo",
+  "year": 2022,
+  "color": "Prata",
+  "price": 70000
+}
+
+###
+
+# @name updateVehicle
+PUT {{baseURL}}/vehicles/{{createVehicle.response.body.id}}
+content-type: application/json
+
+{
+  "color": "Vermelho"
+}
+
+###
+
+# @name listAvailableVehicles
+GET {{baseURL}}/vehicles/available
+
+###
+
+# @name purchaseVehicle
+POST {{baseURL}}/vehicles/{{createVehicle.response.body.id}}/purchase
+authorization: Bearer {{jwt}}
+
+###
+
+# @name listSoldVehicles
+GET {{baseURL}}/vehicles/sold
