@@ -35,6 +35,10 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: ghcr.io/felippechemello/fiap-vehicles-api:latest
 
+      - name: Deploy to Coolify
+        run: |
+          curl --request GET "{{ secrets.API_COOLIFY_URL }}" --header "Authorization: Bearer {{ secrets.API_COOLIFY_TOKEN }}"
+
   build-auth:
     runs-on: ubuntu-latest
     permissions:
@@ -63,3 +67,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ghcr.io/felippechemello/fiap-vehicles-auth:latest
+
+      - name: Deploy to Coolify
+        run: |
+          curl --request GET "{{ secrets.AUTH_COOLIFY_URL }}" --header "Authorization: Bearer {{ secrets.API_COOLIFY_TOKEN }}"
