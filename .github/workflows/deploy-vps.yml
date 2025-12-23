@@ -32,6 +32,7 @@ jobs:
           context: .
           file: services/api/Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: ghcr.io/felippechemello/fiap-vehicles-api:latest
 
       - name: Build and push Auth image
@@ -40,4 +41,5 @@ jobs:
           context: .
           file: services/auth/Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: ghcr.io/felippechemello/fiap-vehicles-auth:latest
